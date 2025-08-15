@@ -7,7 +7,7 @@ Certifique-se de ter o Python instalado
 Instale as dependências executando o seguinte comando na raiz do projeto:
 pip install -r requirements.txt
 Para iniciar o jogo, execute:
-execulte:
+execute:
 python scripts/main.py
 
 📁 Estrutura do projeto
@@ -34,9 +34,8 @@ FAZENDA/
 │   └── todasSprites.py
 ├── requirements.txt   
 
-
 🎨 Créditos dos sprites
-Todos os sprites utilizados neste projeto foram gentilmente disponibilizados por Kenmi no itch.io: "https://kenmi-art.itch.io/"
+Todos os sprites utilizados neste projeto foram gentilmente disponibilizados por [Kenmi no itch.io](https://kenmi-art.itch.io/).
 
 # Objetivo educacional
 Este projeto não tem como foco a complexidade do gameplay, mas sim a organização do código, com boas práticas como:
