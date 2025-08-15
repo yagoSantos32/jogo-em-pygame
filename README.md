@@ -1,16 +1,25 @@
-🕹️ Jogo em Pygame — Prática de Código Limpo
+# 🕹️ Jogo em Pygame — Prática de Código Limpo
+
 Este projeto é um jogo simples desenvolvido com Pygame com o objetivo de praticar os princípios de código limpo, como modularidade, legibilidade, separação de responsabilidades e reutilização de componentes.
 
-=> Como iniciar o projeto
-Certifique-se de ter o Python instalado
+## 🚀 Como iniciar o projeto
 
-Instale as dependências executando o seguinte comando na raiz do projeto:
+1. Certifique-se de ter o **Python** instalado.
+2. Instale as dependências executando o comando na raiz do projeto:
+
+```bash
 pip install -r requirements.txt
-Para iniciar o jogo, execute:
-execute:
-python scripts/main.py
+```
 
-📁 Estrutura do projeto
+3. Para iniciar o jogo, execute:
+
+```bash
+python scripts/main.py
+```
+
+## 📁 Estrutura do projeto
+
+```
 FAZENDA/
 ├── data/               # Dados do jogo (tilesets, mapas, gráficos)
 │   ├── graphics/
@@ -32,23 +41,23 @@ FAZENDA/
 │   ├── mapa.py
 │   ├── player.py
 │   └── todasSprites.py
-├── requirements.txt   
+├── requirements.txt
+```
 
-🎨 Créditos dos sprites
+## 🎨 Créditos dos sprites
+
 Todos os sprites utilizados neste projeto foram gentilmente disponibilizados por [Kenmi no itch.io](https://kenmi-art.itch.io/).
 
-# Objetivo educacional
+## 🏫 Objetivo educacional
+
 Este projeto não tem como foco a complexidade do gameplay, mas sim a organização do código, com boas práticas como:
 
-Separação entre lógica de jogo e renderização
+- Separação entre lógica de jogo e renderização  
+- Uso de funções e classes bem definidas  
+- Evitar duplicação e acoplamento excessivo  
+- Nomes claros e intuitivos para variáveis e funções  
 
-Uso de funções e classes bem definidas
+## 📌 Observações
 
-Evitar duplicação e acoplamento excessivo
-
-Nomes claros e intuitivos para variáveis e funções
-
-📌 Observações
-O jogo pode ser expandido com novos recursos, como sons, pontuação, inimigos e fases.
-
+O jogo pode ser expandido com novos recursos, como sons, pontuação, inimigos e fases.  
 Sugestões e melhorias são bem-vindas!
