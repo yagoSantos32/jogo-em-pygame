@@ -7,7 +7,7 @@ class Inimigo(pygame.sprite.Sprite):
         self.image = pygame.image.load(join('imagens','inimigo', 'inimigo.png')).convert_alpha()
         self.image = pygame.transform.scale(self.image, (100, 100))
         self.rect = self.image.get_rect(topleft=inimigoPos).inflate(-70,-70)
-        self.Inimigospeed = 200
+        self.Inimigospeed = NIVEIS[1]['velocidade_inimigo']
         self.ataca = False
         self.atacaTime = pygame.time.get_ticks() + 500  
         self.inicio = inimigoPos
@@ -36,4 +36,14 @@ class Inimigo(pygame.sprite.Sprite):
 
     def morrer(self):
         self.estacaZero()
+        self.kill() # Adicionar kill para remover o sprite da tela e dos grupos
+    
+    def restaurarVidaCompleta(self):
+        # Inimigos não parecem ter vida, mas se tivessem, seria aqui.
+        # Por enquanto, apenas garante que ele possa atacar novamente.
+        self.ataca = False
+        self.atacaTime = pygame.time.get_ticks() + 500
+    
+    def set_speed(self, velocidade):
+        self.Inimigospeed = velocidade
         

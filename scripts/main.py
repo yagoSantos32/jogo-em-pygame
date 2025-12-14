@@ -3,6 +3,7 @@ from todasSprites import *
 from player import *
 from animais import *
 from inimigo import Inimigo
+from game_manager import GameManager
 from mapa import *
 
 class Jogo():
@@ -31,13 +32,15 @@ class Jogo():
         self.player=Player((2000,800),self.colisaoSprites,(self.todasSprites,self.alimentarSprites))
         self.gun = Arma(self.player , self.todasSprites)
 
-        self.inimigo = Inimigo("mal", (0, 0), self.todasSprites)
-
+        self.inimigos_sprites = pygame.sprite.Group()
+        
       
         self.vaca = Vaca("zinhagou", (1973,1913), 8000,(self.colisaoSprites,  self.alimentarSprites,self.todasSprites))
         self.ovelha = Ovelha("Livia", (2689, 1336),7000, (self.colisaoSprites,  self.alimentarSprites,self.todasSprites))
         self. galinha = Galinha("Davos", (1629, 979),5000,  (self.colisaoSprites,  self.alimentarSprites,self.todasSprites))
         self.porco = Porco("guguleiteiro", (1278, 1336), 7000,(self.colisaoSprites,  self.alimentarSprites,self.todasSprites))
+        animais_lista = [self.vaca, self.ovelha, self.galinha, self.porco]
+        self.game_manager = GameManager(self.todasSprites, self.player, animais_lista, self.inimigos_sprites)
 
     def load_imagens(self):
         self.bullet_self = pygame.image.load(join('imagens', 'pedra.png')).convert_alpha()
@@ -92,7 +95,9 @@ class Jogo():
 
         self.mapaConfig()
         self.player = Player((2000, 800), self.colisaoSprites, (self.todasSprites, self.alimentarSprites))
-        self.inimigo = Inimigo("mal", (0, 0), self.todasSprites)
+        self.inimigos_sprites = pygame.sprite.Group()
+        animais_lista = [self.vaca, self.ovelha, self.galinha, self.porco]
+        self.game_manager = GameManager(self.todasSprites, self.player, animais_lista, self.inimigos_sprites)
         self.gun = Arma(self.player , self.todasSprites)
 
         self.vaca = Vaca("zinhagou", (1973, 1913), 8000, (self.colisaoSprites, self.alimentarSprites, self.todasSprites))
@@ -101,7 +106,14 @@ class Jogo():
         self.porco = Porco("guguleiteiro", (1278, 1336), 7000, (self.colisaoSprites, self.alimentarSprites, self.todasSprites))
 
         self.cena = "mapa"
+        self.player.restaurarVidaCompleta()
+        for animal in [self.vaca, self.ovelha, self.galinha, self.porco]:
+            animal.restaurarVidaCompleta() # Assumindo que os animais também têm um método para restaurar vida
+        self.game_manager.tempo_inicio_nivel = pygame.time.get_ticks()
+        self.game_manager.spawn_inimigos()
     
+
+            
     def menuAlimentar(self, animal):
         esquerda = tela_x / 2 - 60
         topo = tela_y / 2 + 110
@@ -154,20 +166,23 @@ class Jogo():
                 self.tempo_arma()
                 self.input()
                 self.todasSprites.update(delta)
-
                 for bala in self.bala_sprites:
-                    if pygame.sprite.collide_rect(bala, self.inimigo):
-                        self.player.mudarEnergia(self.player.pegarEnergia() + 20)
-                        self.inimigo.morrer()  
+                    # Verifica colisão com todos os inimigos
+                    inimigos_atingidos = pygame.sprite.spritecollide(bala, self.inimigos_sprites, False)
+                    for inimigo in inimigos_atingidos:
+                        self.player.mudarEnergia(self.player.pegarEnergia() + 20) # Recompensa por matar
+                        inimigo.morrer()  
                         bala.kill()
+                        break # A bala só atinge um inimigo
                 
-            
                 self.tela.fill('black')
                 self.todasSprites.draw(self.player.rect.center)
 
-
-                self.inimigo.atacando() 
-                self.inimigo.atacaPlayer(self.player, delta)
+                # Atualizar e desenhar o gerenciador de jogo
+                self.game_manager.update(delta)
+                fonte = pygame.font.Font(None, 36)
+                texto_nivel = fonte.render(f"Nível: {self.game_manager.get_nivel_atual()}", True, (255, 255, 255))
+                self.tela.blit(texto_nivel, (10, 10))
 
 
                 animais= [self.galinha, self.vaca, self.porco, self.ovelha]

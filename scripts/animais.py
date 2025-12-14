@@ -7,7 +7,7 @@ class Animal(pygame.sprite.Sprite):
         self.animalPos = animalPos
         self.originalImg = None  
         self.originalRect = None  
-        self.___energia=100
+        self.___energia=VIDA_MAXIMA
         self.tempoReducao = tempoReducao 
         self.ultimoTempoReducao = pygame.time.get_ticks()  
 
@@ -29,6 +29,9 @@ class Animal(pygame.sprite.Sprite):
         pygame.draw.rect(tela,"black",rect,4,4)
 
     
+    def restaurarVidaCompleta(self):
+        self.___energia = VIDA_MAXIMA
+
     def restaurar(self):
 
         if self.originalImg:
@@ -47,7 +50,7 @@ class Animal(pygame.sprite.Sprite):
     def pegarEnergia(self):
         return self.___energia
     def mudarEnergia(self, valor):
-        self.___energia = max(0, min(valor, 100)) 
+        self.___energia = max(0, min(valor, VIDA_MAXIMA)) 
         
 
 class Vaca(Animal):

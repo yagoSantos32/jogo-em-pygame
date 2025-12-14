@@ -11,7 +11,7 @@ class Player(pygame.sprite.Sprite):
         self.originalImg = None
         self.originalRect = None
         self.hitbox=self.rect.inflate(-80,-60)
-        self.__energia=40
+        self.__energia=VIDA_MAXIMA
         self.playerDir= pygame.math.Vector2(1,0)    
         self.playerSpeed=300
         self.colisoes=colisoes
@@ -44,7 +44,10 @@ class Player(pygame.sprite.Sprite):
         return self.__energia
 
     def mudarEnergia(self, valor):
-        self.__energia = max(0, min(valor, 100)) 
+        self.__energia = max(0, min(valor, VIDA_MAXIMA)) 
+
+    def restaurarVidaCompleta(self):
+        self.__energia = VIDA_MAXIMA
 
     def teclas(self):
         keys=pygame.key.get_pressed()
